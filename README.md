@@ -25,7 +25,15 @@ Após isso, abra o projeto utilizando o InteliJ, após carregar as dependências
 	http://localhost:8080/h2
 
 Clique no ícone de **Connect** e você será direcionado para o console SQL.
-Para auxiliar na execução do projeto, você pode preencher o banco utilizando o conteúdo do arquivo **script-dataset.sql**, que está presente neste repositório, para utilizar basta copiar o conteúdo e colocar no console SQL, e clicar no ícone de executar.
+
+#### Importante
+
+O banco de dados H2 é uma ferramenta para testes normalmente utilizada em ambientes de desenvolvimento, por isso ela armazena os dados em um arquivo, este arquivo já se encontra populado no projeto que está neste repositório, porém caso tenha dificuldades é só remover o arquivo **desafio_spring/ SocialMeli/data/data.mv.db** e executar o seguintes passos:
+
+ 1. Abrir o console SQL no H2.
+ 2. Copiar o conteúdo do arquivo  **script-dataset.sql**, que está presente neste repositório.
+ 3. Colar no console.
+ 4. Clicar no ícone executar do H2.
 
 Por este console também é possível verificar as alterações no banco por meio de consultas **select**.
 
