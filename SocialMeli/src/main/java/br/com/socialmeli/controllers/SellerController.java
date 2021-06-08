@@ -1,29 +1,30 @@
 package br.com.socialmeli.controllers;
 
 import br.com.socialmeli.dtos.UserDTO;
-import br.com.socialmeli.services.UserService;
+import br.com.socialmeli.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
-@RequestMapping("/system/user")
-public class UserController {
+@RequestMapping("/system/seller")
+public class SellerController {
     @Autowired
-    private UserService userService;
+    private SellerService sellerService;
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody UserDTO userDTO){
-        return userService.insertUser(userDTO);
+    public ResponseEntity createSeller(@RequestBody UserDTO userDTO){
+        return sellerService.insertSeller(userDTO);
     }
 
     @GetMapping
-    public ResponseEntity listUser(){
-        return userService.listUser();
+    public ResponseEntity listSeller(){
+        return sellerService.listSeller();
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteUser(@PathVariable Integer userId){
-        return userService.deleteUser(userId);
+        return sellerService.deleteSeller(userId);
     }
 }

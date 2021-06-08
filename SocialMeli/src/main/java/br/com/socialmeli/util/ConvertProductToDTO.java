@@ -4,7 +4,7 @@ import br.com.socialmeli.dtos.ProductDTO;
 import br.com.socialmeli.models.Product;
 import org.modelmapper.ModelMapper;
 
-public class ProductToDTO {
+public class ConvertProductToDTO {
 
 
     public static ProductDTO convertProdctToDTO(Product product){

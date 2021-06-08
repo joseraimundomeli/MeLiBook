@@ -3,7 +3,7 @@ package br.com.socialmeli.controllers;
 import br.com.socialmeli.dtos.PostNewDTO;
 import br.com.socialmeli.exceptions.PageNotFound;
 import br.com.socialmeli.services.SellerService;
-import br.com.socialmeli.services.UserService;
+import br.com.socialmeli.services.SocialMeliService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class SocialMeliController {
 
     @Autowired
-    private UserService userService;
+    private SocialMeliService userService;
 
     @Autowired
     private SellerService sellerService;
@@ -82,9 +82,9 @@ public class SocialMeliController {
         return sellerService.listPromotions(userId);
     }
 
-    // Test do servidor
+    // Tratamento de url erradas
     @GetMapping("/**")
-    public String testeServidor(){
+    public String errorPagNotFound(){
         throw new PageNotFound("Sorry :( page not found!");
     }
 }

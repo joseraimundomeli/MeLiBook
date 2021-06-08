@@ -8,7 +8,7 @@ import br.com.socialmeli.models.Seller;
 import br.com.socialmeli.resposistories.PostRepository;
 import br.com.socialmeli.resposistories.ProductRepository;
 import br.com.socialmeli.resposistories.SellerRepository;
-import br.com.socialmeli.util.ProductToDTO;
+import br.com.socialmeli.util.ConvertProductToDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -161,7 +161,7 @@ public class SellerService {
                 .map( x -> new PostDTO(
                         x.getPostId(),
                         x.getDate(),
-                        ProductToDTO.convertProdctToDTO(x.getDetail()),
+                        ConvertProductToDTO.convertProdctToDTO(x.getDetail()),
                         x.getCategory(),
                         x.getPrice()
                 ))
@@ -171,5 +171,44 @@ public class SellerService {
         sellerResponse.setUserId(seller.getUserId());
         sellerResponse.setPosts(postDTOS);
         return new ResponseEntity<SellerPromoPostListDTO>(sellerResponse, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> insertSeller(UserDTO userDTO) {
+        Seller seller = new Seller();
+        seller.setUserName(userDTO.getUserName());
+        System.out.println(userDTO.getUserName());
+        seller = sellerRepositoryInterface.save(seller);
+        return new ResponseEntity(seller, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> listSeller() {
+        List<Seller> sellers = sellerRepositoryInterface.findAll();
+        List<SellerDTO> sellerDTOS = sellers
+                .stream()
+                .map(seller -> new SellerDTO(seller.getUserId(), seller.getUserName(),
+                        seller.getPosts()
+                                .stream()
+                                .map(post ->     new PostDTO(
+                                                post.getPostId(),
+                                                post.getDate(),
+                                                ConvertProductToDTO.convertProdctToDTO(post.getDetail()),
+                                                post.getCategory(),
+                                                post.getPrice()
+                                        )
+                                ).collect(Collectors.toList())
+                        ))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(sellerDTOS, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> deleteSeller(Integer userId) {
+        Optional<Seller> optionalSeller = sellerRepositoryInterface.findById((long) userId);
+        if (!optionalSeller.isPresent()){
+            throw new UserNotFound("Seller not found for ID: " + userId);
+        }
+        Seller seller = optionalSeller.get();
+
+        sellerRepositoryInterface.delete(seller);
+        return new ResponseEntity<>("Removed success", HttpStatus.OK);
     }
 }
