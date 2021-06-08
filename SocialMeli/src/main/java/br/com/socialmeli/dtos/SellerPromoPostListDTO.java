@@ -2,10 +2,10 @@ package br.com.socialmeli.dtos;
 
 import java.util.List;
 
-public class SellerClientsListDTO {
+public class SellerPromoPostListDTO {
     private Long userId;
     private String userName;
-    private List<UserDTO> folloers;
+    List<PostDTO> posts;
 
     public Long getUserId() {
         return userId;
@@ -23,11 +23,11 @@ public class SellerClientsListDTO {
         this.userName = userName;
     }
 
-    public List<UserDTO> getFolloers() {
-        return folloers;
+    public List<PostDTO> getPosts() {
+        return posts;
     }
 
-    public void setFolloers(List<UserDTO> folloers) {
-        this.folloers = folloers;
+    public void setPosts(List<PostDTO> posts) {
+        this.posts = posts;
     }
 }

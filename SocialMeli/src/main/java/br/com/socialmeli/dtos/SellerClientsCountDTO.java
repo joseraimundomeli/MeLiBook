@@ -1,15 +1,15 @@
 package br.com.socialmeli.dtos;
 
 public class SellerClientsCountDTO {
-    private Integer idUser;
+    private Long idUser;
     private String userName;
     private Integer followers_count;
 
-    public Integer getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 

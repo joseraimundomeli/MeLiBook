@@ -1,11 +1,9 @@
 package br.com.socialmeli.dtos;
 
-import java.util.List;
-
-public class SellerClientsListDTO {
+public class SellerCountPromoDTO {
     private Long userId;
     private String userName;
-    private List<UserDTO> folloers;
+    private Long promoProductsCount;
 
     public Long getUserId() {
         return userId;
@@ -23,11 +21,11 @@ public class SellerClientsListDTO {
         this.userName = userName;
     }
 
-    public List<UserDTO> getFolloers() {
-        return folloers;
+    public Long getPromoProductsCount() {
+        return promoProductsCount;
     }
 
-    public void setFolloers(List<UserDTO> folloers) {
-        this.folloers = folloers;
+    public void setPromoProductsCount(Long promoProductsCount) {
+        this.promoProductsCount = promoProductsCount;
     }
 }

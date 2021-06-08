@@ -1,27 +1,30 @@
 package br.com.socialmeli.models;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USERTYPE")
 public class User {
-    public User(Integer userId, String userName, List<Integer> follow, List<Integer> posts, Boolean isSaler) {
-        this.userId = userId;
-        this.userName = userName;
-        this.follow = follow;
-        this.posts = posts;
-        this.isSaler = isSaler;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long userId;
+    protected String userName;
+
+    @OneToMany(mappedBy = "user")
+    protected List<Following> following = new ArrayList<>();
+
+    public User() {
     }
 
-    protected Integer userId;
-    protected String userName;
-    protected List<Integer> follow;
-    protected List<Integer> posts;
-    protected Boolean isSaler;
-
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -33,38 +36,12 @@ public class User {
         this.userName = userName;
     }
 
-
-    public List<Integer> getFollow() {
-        return follow;
+    public List<Following> getFollowing() {
+        return following;
     }
 
-    public void setFollow(List<Integer> follow) {
-        this.follow = follow;
-    }
-
-    public List<Integer> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Integer> posts) {
-        this.posts = posts;
-    }
-
-    public Boolean getSaler() {
-        return isSaler;
-    }
-
-    public void setSaler(Boolean saler) {
-        isSaler = saler;
-    }
-
-
-    public void addConnection(Integer id){
-        this.follow.add(id);
-    }
-
-    public void removeConnection(Integer id){
-        this.follow.remove(id);
+    public void setFollowing(List<Following> following) {
+        this.following = following;
     }
 
 
@@ -73,9 +50,7 @@ public class User {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", follow=" + follow +
-                ", posts=" + posts +
-                ", isSaler=" + isSaler +
+                ", following=" + following +
                 '}';
     }
 }
