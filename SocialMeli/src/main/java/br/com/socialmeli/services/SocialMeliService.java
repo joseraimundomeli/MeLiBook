@@ -152,12 +152,14 @@ public class SocialMeliService {
 
         LocalDate pastTime = LocalDate.now().minusWeeks(2);
 
+
         List<Post> posts = user.getFollowing()
                 .stream()
-                .filter(followX -> followX.getData().isAfter(pastTime))
-                .map(followY -> followY.getSeller().getPosts())
+                .map(f -> f.getSeller().getPosts())
                 .flatMap(plist -> plist.stream())
+                .filter(post -> post.getDate().isAfter(pastTime))
                 .collect(Collectors.toList());
+
 
         List<PostDTO> postDTO = posts.stream().map(
                                 x -> new PostDTO(
@@ -170,7 +172,6 @@ public class SocialMeliService {
                         ).collect(Collectors.toList());
 
         if (order != null){
-            System.out.println(order);
             if (order.equals("date_asc")){
                 postDTO = postDTO.stream()
                         .sorted(Comparator.comparing(PostDTO::getDate))
